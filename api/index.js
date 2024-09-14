@@ -10,6 +10,7 @@ import calendarRoutes from "./routes/calendar.route.js";
 import setRoutes from "./routes/set.route.js";
 import resetRoutes from "./routes/reset.route.js";
 import cookieParser from "cookie-parser";
+import { swaggerDocs, swaggerUiOptions } from "./swaggerConfig.js";
 
 dotenv.config();
 
@@ -52,6 +53,15 @@ app.options('*', cors(corsOptions));
 // Outros middlewares
 app.use(cookieParser()); // Extrai as informações contidas nos cookies e as torna acessíveis para o servidor
 app.use(express.json()); // Middleware usado para analisar o corpo das solicitações HTTP com formato JSON
+
+
+// Configuração do Swagger
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocs, swaggerUiOptions)
+);
+//Para acessar a documentação entre em http://localhost:4000/api-docs/
 
 // Suas rotas
 app.use("/api/user", userRoutes);

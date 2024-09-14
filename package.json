@@ -24,7 +24,9 @@
     "mongoose": "^8.3.4",
     "nodemailer": "^6.9.14",
     "nodemon": "^3.1.0",
-    "react-redux": "^9.1.2"
+    "react-redux": "^9.1.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3"
