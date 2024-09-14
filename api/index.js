@@ -10,6 +10,7 @@ import calendarRoutes from "./routes/calendar.route.js";
 import setRoutes from "./routes/set.route.js";
 import resetRoutes from "./routes/reset.route.js";
 import cookieParser from "cookie-parser";
+import swaggerUi from "swagger-ui-express";
 import { swaggerDocs, swaggerUiOptions } from "./swaggerConfig.js";
 
 dotenv.config();
@@ -28,7 +29,11 @@ mongoose
     console.log(err, "ERROR");
   });
 
-const allowedOrigins = ["https://guifsch.github.io", "https://gym-bro-frontend.vercel.app"];
+const allowedOrigins = [
+  "https://guifsch.github.io",
+  "https://gym-bro-frontend.vercel.app",
+  "http://localhost:3000",
+];
 
 const corsOptions = {
   origin: (origin, callback) => {
@@ -36,7 +41,7 @@ const corsOptions = {
       // Permite a origem se estiver na lista ou se a origem for undefined (por exemplo, requisições feitas no mesmo servidor)
       callback(null, true);
     } else {
-      callback(new Error('Não perimitido pelo CORS'));
+      callback(new Error("Não perimitido pelo CORS"));
     }
   },
   credentials: true,
@@ -48,12 +53,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Middleware para tratar solicitações OPTIONS
-app.options('*', cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 // Outros middlewares
 app.use(cookieParser()); // Extrai as informações contidas nos cookies e as torna acessíveis para o servidor
 app.use(express.json()); // Middleware usado para analisar o corpo das solicitações HTTP com formato JSON
-
 
 // Configuração do Swagger
 app.use(
@@ -61,7 +65,7 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocs, swaggerUiOptions)
 );
-//Para acessar a documentação entre em http://localhost:4000/api-docs/
+//Para acessar a documentação entre em http://localhost:3000/api-docs/
 
 // Suas rotas
 app.use("/api/user", userRoutes);
