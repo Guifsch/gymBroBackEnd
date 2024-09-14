@@ -26,11 +26,21 @@ mongoose
   .catch((err) => {
     console.log(err, "ERROR");
   });
+
+const allowedOrigins = ["https://guifsch.github.io", "https://gym-bro-frontend.vercel.app"];
+
 const corsOptions = {
-  origin: ["http://localhost:5173"],
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      // Permite a origem se estiver na lista ou se a origem for undefined (por exemplo, requisições feitas no mesmo servidor)
+      callback(null, true);
+    } else {
+      callback(new Error('Não perimitido pelo CORS'));
+    }
+  },
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Incluindo OPTIONS
-  allowedHeaders: ["Content-Type", "Authorization"], // Adicione outros cabeçalhos se necessário
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
 };
 
 // Middleware de CORS
