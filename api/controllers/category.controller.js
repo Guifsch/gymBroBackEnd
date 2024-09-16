@@ -113,11 +113,10 @@ export const updateCategorys = async (req, res, next) => {
 };
 
 export const deleteCategorys = async (req, res, next) => {
-  const { itemId, categoryItemId } = req.params;
-
+  const { categoryItemId, itemId} = req.params;
   try {
-    const item = await Category.findById(itemId);
-
+    const item = await Category.findById(categoryItemId);
+    console.log(item)
     // Se o item não for encontrado, retorna uma resposta 404
     if (!item) {
       return next(errorHandler(404, "Item não encontrado!"));
@@ -125,12 +124,12 @@ export const deleteCategorys = async (req, res, next) => {
 
     // Filtra o array 'categoryItems', removendo o item com o '_id' correspondente a 'categoryItemId'
     item.categoryItems = item.categoryItems.filter(
-      (categoryItem) => categoryItem._id.toString() !== categoryItemId
+      (categoryItem) => categoryItem._id.toString() !== itemId
     );
 
     // Se 'categoryItems' estiver vazio após a remoção, exclui o item inteiro
     if (item.categoryItems.length === 0) {
-      await Category.findByIdAndDelete(itemId);
+      await Category.findByIdAndDelete(categoryItemId);
       return res
         .status(200)
         .send({ message: "Categoria e todos os seus itens foram excluídos." });

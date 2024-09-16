@@ -133,7 +133,7 @@ router.put("/update/:id", verifyToken, updateCategorys);
 
 /**
  * @swagger
- * /api/category/categorys/{itemId}/categoryItems/{categoryItemId}:
+ * /api/category/{itemId}/{categoryItemId}:
  *   delete:
  *     summary: Exclui um item de categoria específico
  *     tags: [Categories]
@@ -162,6 +162,6 @@ router.put("/update/:id", verifyToken, updateCategorys);
  *       404:
  *         description: Item não encontrado
  */
-router.delete("/categorys/:itemId/categoryItems/:categoryItemId", verifyToken, deleteCategorys);
+router.delete("/:categoryItemId/:itemId", verifyToken, deleteCategorys);
 
 export default router;

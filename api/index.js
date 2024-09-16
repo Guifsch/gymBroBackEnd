@@ -33,6 +33,7 @@ const allowedOrigins = [
   "https://guifsch.github.io",
   "https://gym-bro-frontend.vercel.app",
   "https://gymbrobackend.onrender.com",
+  "http://localhost:5173",
   "http://localhost:3000",
 ];
 
